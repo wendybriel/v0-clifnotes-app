@@ -2,8 +2,8 @@
 
 import type React from "react"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, Suspense } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,8 +12,10 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { signUp } from "@/lib/actions/auth"
 import Link from "next/link"
 
-export default function SignUpPage() {
+function SignUpForm() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirect = searchParams.get("redirect") || "/"
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -28,6 +30,7 @@ export default function SignUpPage() {
     setError("")
 
     const formData = new FormData(e.target as HTMLFormElement)
+    formData.append("redirect", redirect)
 
     try {
       const result = await signUp(formData)
@@ -161,5 +164,13 @@ export default function SignUpPage() {
         </CardContent>
       </Card>
     </div>
+  )
+}
+
+export default function SignUpPage() {
+  return (
+    <Suspense fallback={null}>
+      <SignUpForm />
+    </Suspense>
   )
 }

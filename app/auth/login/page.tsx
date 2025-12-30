@@ -25,6 +25,7 @@ export default function LoginPage() {
     setError("")
 
     const formData = new FormData(e.target as HTMLFormElement)
+    formData.append("redirect", redirect)
 
     try {
       const result = await signIn(formData)
