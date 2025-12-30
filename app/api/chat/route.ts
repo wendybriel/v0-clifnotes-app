@@ -68,7 +68,7 @@ Use this information to provide helpful, specific recommendations when travelers
     const prompt = convertToModelMessages(messages)
 
     const result = streamText({
-      model: "openai/gpt-5-mini",
+      model: "openai/gpt-4o-mini",
       system: `${selectedProfile.systemPrompt}\n\n${context}`,
       messages: prompt,
       abortSignal: req.signal,

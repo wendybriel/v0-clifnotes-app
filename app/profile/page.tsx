@@ -7,6 +7,15 @@ import { signOut } from "@/lib/actions/auth"
 import Link from "next/link"
 import { User } from "lucide-react"
 
+interface ChatHistory {
+  id: number
+  user_id: number
+  conversation_id: string
+  role: string
+  content: string
+  created_at: string
+}
+
 export default async function ProfilePage() {
   const session = await getSession()
 
@@ -113,7 +122,7 @@ export default async function ProfilePage() {
             <CardContent>
               {chatHistory && chatHistory.length > 0 ? (
                 <div className="space-y-3">
-                  {chatHistory.slice(0, 5).map((chat: any) => (
+                  {(chatHistory as ChatHistory[]).slice(0, 5).map((chat) => (
                     <div key={chat.id} className="p-3 rounded-lg bg-muted">
                       <p className="text-sm font-medium capitalize mb-1">{chat.role}</p>
                       <p className="text-sm text-muted-foreground line-clamp-2">{chat.content}</p>
