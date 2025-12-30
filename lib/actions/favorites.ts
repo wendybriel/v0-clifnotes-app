@@ -13,9 +13,9 @@ export async function addFavorite(itemType: "attraction" | "restaurant" | "phras
 
   try {
     await sql`
-      INSERT INTO favorites (user_id, item_type, item_id)
+      INSERT INTO user_favorites (user_id, favorite_type, favorite_id)
       VALUES (${session.userId}, ${itemType}, ${itemId})
-      ON CONFLICT (user_id, item_type, item_id) DO NOTHING
+      ON CONFLICT (user_id, favorite_type, favorite_id) DO NOTHING
     `
 
     revalidatePath("/favorites")
@@ -34,10 +34,10 @@ export async function removeFavorite(itemType: "attraction" | "restaurant" | "ph
 
   try {
     await sql`
-      DELETE FROM favorites
+      DELETE FROM user_favorites
       WHERE user_id = ${session.userId}
-      AND item_type = ${itemType}
-      AND item_id = ${itemId}
+      AND favorite_type = ${itemType}
+      AND favorite_id = ${itemId}
     `
 
     revalidatePath("/favorites")
@@ -56,10 +56,10 @@ export async function checkFavorite(itemType: "attraction" | "restaurant" | "phr
 
   try {
     const result = await sql`
-      SELECT id FROM favorites
+      SELECT id FROM user_favorites
       WHERE user_id = ${session.userId}
-      AND item_type = ${itemType}
-      AND item_id = ${itemId}
+      AND favorite_type = ${itemType}
+      AND favorite_id = ${itemId}
     `
 
     return { isFavorite: result.length > 0 }

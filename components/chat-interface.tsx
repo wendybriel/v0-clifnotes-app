@@ -65,7 +65,7 @@ export function ChatInterface() {
             <div className="flex items-center justify-center h-full text-center text-muted-foreground">
               <div>
                 <Bot className="w-12 h-12 mx-auto mb-4 text-primary" />
-                <p className="text-lg font-semibold mb-2">Hi! I'm {selectedProfile === "mark" ? "Mark" : "Debbie"}</p>
+                <p className="text-lg font-semibold mb-2">Hi {selectedProfile === "mark" ? "Mark" : "Debbie"}</p>
                 <p className="text-sm">
                   {selectedProfile === "mark"
                     ? "Ask me about Spanish culture, architecture, or the best local experiences!"
