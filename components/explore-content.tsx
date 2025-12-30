@@ -14,7 +14,8 @@ interface ExploreContentProps {
   restaurants: Restaurant[]
 }
 
-
+export function ExploreContent({ destination, attractions, restaurants }: ExploreContentProps) {
+  const [searchQuery, setSearchQuery] = useState("")
 
   const filteredAttractions = attractions.filter(
     (attraction) =>
